@@ -107,6 +107,7 @@ WELL_NAME_COLUMN = 'Well Name'
 DATASET_NAME_COLUMN = 'Dataset Name'
 IMAGE_NAME_COLUMN = 'Image Name'
 ROI_NAME_COLUMN = 'Roi Name'
+OBJECT_COLUMN = 'Object'
 
 ADDED_COLUMN_NAMES = [PLATE_NAME_COLUMN,
                       WELL_NAME_COLUMN,
@@ -316,6 +317,13 @@ class HeaderResolver(object):
                 append.append(ImageColumn("Image", '', list()))
             if column.name == ROI_NAME_COLUMN:
                 append.append(RoiColumn("Roi", '', list()))
+            if column.name.lower() == OBJECT_COLUMN.lower():
+                # Ensure Object Column is named "Object"
+                column.name = "Object"
+                # Check Object Column data type
+                if column.__class__ is not LongColumn:
+                    log.warning(
+                        "Object column is the wrong data type. Should be long.")
         if self.columns_sanity_check(columns):
             columns.extend(append)
         return columns
