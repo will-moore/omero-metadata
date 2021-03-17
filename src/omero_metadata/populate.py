@@ -323,7 +323,7 @@ class HeaderResolver(object):
                 # Check Object Column data type
                 if column.__class__ is not LongColumn:
                     log.warning(
-                        "Object column is the wrong data type. Should be long.")
+                        "Object column data type should be long.")
         if self.columns_sanity_check(columns):
             columns.extend(append)
         return columns
